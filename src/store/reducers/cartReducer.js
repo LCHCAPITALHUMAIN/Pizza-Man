@@ -39,7 +39,42 @@ const reducer = (state = initialState, action) => {
                 totalPrice: updatedPrice,
                 gst: updatedGst
             }
+            case actionTypes.ADD_CUSTOM_ITEM_TO_CART:
+                
+                if (payload.item.id in state.itemMap) {
+                    updatedCart[state.itemMap[payload.item.id]].quantity = payload.quantity;
+                   
+                    if (payload.quantity === "0" || payload.quantity === "" ) {
+                         
+                        updatedCart = updatedCart.filter(item => item.id !== payload.item.id)
+                        const index = updatedMap[payload.item.id]
+                        delete updatedMap[payload.item.id]
+                        for (let i = index; i < updatedCart.length; i++) {
+                            updatedMap[updatedCart[i].id] -= 1
+                        }
+                    }
+                } else {
+                    updatedMap[payload.item.id] = updatedCart.length
+                    updatedCart.push({
+                        ...payload.item,
+                        quantity: 1
+                    })
+                }
+                updatedPrice = 0 ;
 
+                for (let i = 0; i < updatedCart.length; i++) {
+                    updatedPrice += updatedCart[i].price * updatedCart[i].quantity
+                }
+                 
+                // updatedPrice += payload.item.price * payload.quantity
+                updatedGst = +((updatedPrice * GST_RATE).toFixed(2))
+                return {
+                    ...state,
+                    cart: updatedCart,
+                    itemMap: updatedMap,
+                    totalPrice: updatedPrice,
+                    gst: updatedGst
+                }    
         case actionTypes.REMOVE_ITEM_FROM_CART:
             if (!(payload.item.id in state.itemMap)) {
                 return state

@@ -4,50 +4,62 @@ import { connect } from 'react-redux'
 import * as actions from '../../../../../store/actions/actions'
 
 import style from './item.module.css'
-
-function Item(props) {
-    const { name, desc, id, imgLink, price } = props
-    const item = {
-        id: id,
+import Product from './Product/Product'
+ function Item(props) {
+    const { name, index, products } = props
+    const subcat = {
         name: name,
-        price: price,
-        desc: desc,
-        imgLink: imgLink
+        index: index,
+        item: products
     }
 
-    return (
-        <div className={style.Body}>
-            <div className={style.ImgContainer}>
-                <div className={style.Image} style={{ backgroundImage: `url(${imgLink})` }} />
-            </div>
-            <div className="container">
-                <span className="font-weight-light pt-2">
-                    <strong>{name}</strong>
-                </span>
-                <br />
-                <span className={`font-italic font-weight-lighter text-muted ${style.Description}`}>{desc}</span>
-                <div className="row">
-                    <div className={`mb-2 ${style.Row}`}>
-                        <span className={`my-auto font-weight-light ${style.Price}`}>
-                            <strong>₹</strong> {price}
-                        </span>
-                        <div className={`my-auto ml-auto ${style.BtnHolder}`}>
-                            <button className={style.ItemActionBtn} onClick={() => props.removeItemFromCart(item)}>
-                                <i className="fa fa-minus" aria-hidden="true" />
-                            </button>
-                            <span className={`my-auto mx-1 font-weight-light ${style.Price}`}>
-                                <strong> {id in props.itemMap ?
-                                    props.cart[props.itemMap[id]].quantity : 0} </strong>
-                            </span>
-                            <button className={style.ItemActionBtn} onClick={() => props.addItemToCart(item)}>
-                                <i className="fa fa-plus" aria-hidden="true" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
+    // const categorieName = index === 0 ? <td rowSpan={subcat.item.length + 1}>{subcat.name}</td> : null
+    const display_product = subcat.item.map((product, index) => {
+        return <Product
+            cat_name = {subcat.name}
+            rowSpan = {subcat.item.length}
+            name={product.name}
+            id={product.id}
+            price={product.price}
+            desc={product.desc}
+            imgLink={product.imgLink}
+            index={index}
+            unit_price={product.unit_price}
+            box_quantity={product.box_quantity}
+            key={index+'_prod'} />
+    })
+         
+     
+
+    if (index > -1) {
+        const display = subcat.item.map((product, index) => {
+            return <Product
+
+                name={product.name}
+                id = {product.id}
+                price = {product.price}
+                desc = {product.desc}
+                imgLink = {product.imgLink}
+                index = {index}
+                unit_price= {product.unit_price}
+                box_quantity= {product.box_quantity}
+                key={index} />
+            }
+        );
+        return (
+            <>
+            
+            {display_product}
+             
+            </>
+        )
+    }
+    else {
+        return (
+            <></>
+        )
+    }
+
 }
 
 const mapStateToProps = state => ({

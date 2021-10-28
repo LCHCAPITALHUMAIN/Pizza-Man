@@ -14,7 +14,15 @@ export const addItemToCart = item => {
         }
     }
 }
-
+export const addCustomItemToCart = (item, quantity)=> {
+    return {
+        type: actionTypes.ADD_CUSTOM_ITEM_TO_CART,
+        payload: {
+            item: item,
+            quantity: quantity
+        }
+    }
+}
 export const removeItemFromCart = item => {
     return {
         type: actionTypes.REMOVE_ITEM_FROM_CART,

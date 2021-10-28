@@ -1,9 +1,12 @@
+import axios from '../../axios/axios'
+
 export {
     initMenu
 } from './menu'
 export {
     clearCart,
     addItemToCart,
+    addCustomItemToCart,
     removeItemFromCart
 } from './cart'
 export {
@@ -28,3 +31,18 @@ export {
     updateOrder,
     clearOrders
 } from './pastOrders'
+
+export function getProduct(){
+	return (dispatch, getState)=>{
+		axios.get("../menu.json")
+            .then(response => (
+                
+                
+                dispatch({
+					type : 'SET_PRODUCTS',
+					value : response.data
+				})
+            ))
+	
+	}
+}

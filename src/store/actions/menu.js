@@ -10,6 +10,7 @@ export const getMenu = () => {
 }
 
 export const getMenuSuccess = menu => {
+    
     return {
         type: actionTypes.GET_MENU_SUCCESS,
         payload: {
@@ -17,7 +18,20 @@ export const getMenuSuccess = menu => {
         }
     }
 }
-
+export function getProduct(){
+	return (dispatch, getState)=>{
+		axios.get("../menu.json")
+            .then(response => (
+                
+                
+                dispatch({
+					type : 'SET_PRODUCTS',
+					value : response.data
+				})
+            ))
+	
+	}
+}
 export const getMenuFail = error => {
     return {
         type: actionTypes.GET_MENU_FAIL,
@@ -26,12 +40,23 @@ export const getMenuFail = error => {
         }
     }
 }
-
+export const initMenu2 = () => {
+    return dispatch => {
+        dispatch(getMenu())
+        axios.get("../menu.json")
+            .then(response => (
+                
+                dispatch(getMenuSuccess(response.data))
+            ))
+            .catch(error => dispatch(getMenuFail(error.message)))
+    }
+}
 export const initMenu = () => {
     return dispatch => {
         dispatch(getMenu())
-        axios.get("/menu.json")
+        axios.get("../menu.json")
             .then(response => (
+                
                 dispatch(getMenuSuccess(response.data))
             ))
             .catch(error => dispatch(getMenuFail(error.message)))

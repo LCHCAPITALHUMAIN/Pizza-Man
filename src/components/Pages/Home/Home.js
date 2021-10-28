@@ -5,7 +5,7 @@ import Button from '../../UI/Button/Button'
 
 import style from './home.module.css'
 
-import BG from '../../../static/img/HomeBg/1.jpg'
+import BG from '../../../static/img/HomeBg/diaporama-01_n.jpeg'
 
 import Logo from '../../../static/img/Logo.png'
 
@@ -14,14 +14,13 @@ function Home() {
         <>
             <div
                 className={`pt-5 ${style.BodyContainer}`}
-                style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${BG})` }}>
+                style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${BG}')` }}>
                 <div className="container mt-5 pt-5">
-                    <img src={Logo} className={style.Logo} alt="Logo" />
-                    <h2 className={style.H2}>Pizza Man Online Ordering</h2>
-                    <h1 className={style.H1}>Your Yummy Pizza Delivered Fast & Fresh</h1>
+                    <h2 className={style.H2}>Guigal</h2>
+                   
                     <Link to="/menu">
                         <Button>
-                            Order Now
+                            Commander maintenant
                         </Button>
                     </Link>
                 </div>

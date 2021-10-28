@@ -22,6 +22,7 @@ function Orders(props) {
     const { user, updateOrder, clearOrders, isLoading, hasMore } = props
 
     useEffect(() => {
+         
         if (user) {
             updateOrder(user.uid)
         }
@@ -67,8 +68,9 @@ function Orders(props) {
                     </h1>
                 </> : null}
             <br />
-            {props.isLoading ? <Spinner />
-                : null}
+            { // props.isLoading ? (props.orders.length ===0) ? :<Spinner /> :null
+                //: null
+            }
         </div >
     )
 }

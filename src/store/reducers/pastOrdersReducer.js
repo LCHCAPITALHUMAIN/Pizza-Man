@@ -19,6 +19,7 @@ const reducer = (state = initialState, action) => {
             }
 
         case actionTypes.GET_ORDERS_SUCCESS:
+            console.log({payload:payload})
             const updatedOrders = [
                 ...state.orders,
                 ...payload.orders
