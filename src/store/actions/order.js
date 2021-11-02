@@ -38,6 +38,7 @@ export const placeOrder = (data) => {
         const dataRef = db.collection('orders').doc()
         console.log(data)
         
+
         dataRef.set({
             ...data,
             ts: Math.round(new Date().getTime())
@@ -48,7 +49,7 @@ export const placeOrder = (data) => {
                 axios({
                     method: 'POST',
                     maxRedirects: 2,
-                    url: 'https://script.google.com/macros/s/AKfycbwohedlqrqm9IkxahjI-kLDwzpTcGwqw8Z5vGDLK032-2oKShupfuBuhVrDxUAIppl0/exec?action=create',
+                    url: 'https://script.google.com/macros/s/AKfycbx0qKQnXvrP17GpdaQmVjsy2k4uWsw9kWPBjYoUk_n0OE3mAWQ0jzoaZds3F9gQoG7U/exec?action=create',
                     data: data
                     ,
                     headers: {

@@ -17,15 +17,20 @@ import commonStyle from '../../../static/style/common.module.css'
 import checkoutStyle from './checkout.module.css'
 
 
-const placeOrderHandler = (event, address, modeSelected, modeDeliverySelected ,data, placeOrder, placeOrderFail) => {
+const placeOrderHandler = (event, address, modeSelected, data, placeOrder, placeOrderFail,modeFactured, modeDeliverySelected, deliveryAdress,deliveryDate,comment) => {
     event.preventDefault()
 
-    if (address && modeSelected && modeDeliverySelected) {
+data.modeSelected = modeSelected ? modeSelected : '';
+data.modeFactured = modeFactured ? modeFactured : '';
+data.modeDeliverySelected = modeDeliverySelected ? modeDeliverySelected : '';
+data.deliveryAdress = deliveryAdress ? deliveryAdress : '';
+data.deliveryDate = deliveryDate ? deliveryDate : '';
+data.comment = comment ? comment : '';
+console.log(data)
+if (address && modeSelected) {
         placeOrder(data)
     } else if (!address && !modeSelected) {
         placeOrderFail("Please make sure that all fields are filled")
-    } else if (!modeDeliverySelected) {
-        placeOrderFail("Please fill in the address field")
     } else if (!address) {
         placeOrderFail("Please fill in the address field")
     }else {
@@ -45,21 +50,27 @@ function Checkout(props) {
         order: order,
         address: props.address,
         uid: props.user && props.user.uid,
+        modeFactured: props.modeFactured,
+        modeDeliverySelected: props.modeDeliverySelected,
+        comment: props.comment,
+        deliveryAdress: props.deliveryAdress,
+        deliveryDate: props.deliveryDate,
         price: {
             price: props.price,
             gst: props.gst,
             total: props.price + props.gst
         }
     }
-
-    const { placeOrderInitialize, getAddress, user } = props
-
+   
+    const { placeOrderInitialize, getAddress, user} = props
+    const days = 15; // Number of days in the future
     const [addressFormShown, setAddressFormShown] = useState(false)
     const [modeSelected, setModeSelected] = useState(false)
-    const [ modeDeliverySelected, setModeDeliverySelected] = useState("Argenteuil")
-    const [deliveryAdress, setDeliveryAdress] = useState(false)
-    const [deliveryDate, setDeliveryDate] = useState(false)
-    const [comment, setComment] = useState(false)
+    const [modeFactured, setModeFactured] = useState(false)
+    const [modeDeliverySelected, setModeDeliverySelected] = useState("Argenteuil")
+    const [deliveryAdress, setDeliveryAdress] = useState('')
+    const [deliveryDate, setDeliveryDate] = useState(new Date( Date.now() + days * 24 * 60 * 60 * 1000).toLocaleDateString())
+    const [comment, setComment] = useState('')
      
 
     
@@ -224,7 +235,7 @@ function Checkout(props) {
                                             </tr>
                                             <tr>
                                             <td colSpan="3" ></td>
-                                                <td><span className={checkoutStyle.totalOrderValueAlignRight}>{props.price + props.gst + 20}</span></td>
+                                                <td><span className={checkoutStyle.totalOrderValueAlignRight}>{(props.price + props.gst + 20).toFixed(2)}</span></td>
                                             </tr>
                                         </tfoot>            
                                     </table>
@@ -239,19 +250,19 @@ function Checkout(props) {
                                 </SectionTitle>
                                 <div className="row">
                                     <div className="col-12 mt-4">
-                                        <RadioButton name="ModeOfPayment" code="virement" isRequired clickFunc={() => setModeSelected(true)}>
+                                        <RadioButton name="ModeOfPayment" code="virement" isRequired clickFunc={() => setModeSelected('virement')}>
                                             Chèque
                                         </RadioButton>
-                                        <RadioButton name="ModeOfPayment" code="cheque" isRequired clickFunc={() => setModeSelected(true)}>
+                                        <RadioButton name="ModeOfPayment" code="cheque" isRequired clickFunc={() => setModeSelected('cheque')}>
                                             Virement
                                         </RadioButton>
                                     </div>
                                     <div className="col-12 mt-4">
                                         Avez-vous besoin d'une facture ?
-                                        <RadioButton name="ModeOfPayment" code="virement" isRequired clickFunc={() => setModeSelected(true)}>
+                                        <RadioButton name="factured" code="yes" isRequired clickFunc={() => setModeFactured(true)}>
                                             Oui
                                         </RadioButton>
-                                        <RadioButton name="ModeOfPayment" code="cheque" isRequired clickFunc={() => setModeSelected(true)}>
+                                        <RadioButton name="factured" code="no" isRequired clickFunc={() => setModeFactured(false)}>
                                             Non
                                         </RadioButton>
                                     </div>
@@ -273,7 +284,8 @@ function Checkout(props) {
                                             : null}
                                     </div>
                                     <div className="col-12 my-3">
-                                        <Button type="button" onClick={(event) => placeOrderHandler(event, props.address, modeSelected, modeDeliverySelected, data, props.placeOrder, props.placeOrderFail)}>
+                                        <Button type="button" onClick={(event) => placeOrderHandler(event, props.address, modeSelected, data, props.placeOrder, props.placeOrderFail,
+                                            modeFactured, modeDeliverySelected, deliveryAdress,deliveryDate,comment)}>
                                             Confirmer la commande
                                         </Button>
                                     </div>

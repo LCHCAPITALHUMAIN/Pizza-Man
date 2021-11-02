@@ -9,7 +9,7 @@ function Select(props) {
     return (
         <select value={val} onChange={onChangeHandler}
         className={style.Input}>            
-        <option value="Argenteuil">Récupération a Argenteuil</option>
+        <option value="Argenteuil">Récupération à Argenteuil</option>
         <option value="Livraison">Livraison à Domicile</option>
         <option value="pointRelais1">pointRelais1</option>
         <option value="pointRelais2">pointRelais1</option>

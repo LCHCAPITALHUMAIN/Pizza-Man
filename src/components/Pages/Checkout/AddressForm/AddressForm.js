@@ -47,41 +47,57 @@ function AddressForm(props) {
 
     return (
         <div>
+            <div>
+            <label for="lastname">Email: </label>
             <Input
                 val={addressEmail}
                 onChangeFunc={setAddressEmail}
                 placeholder="Email"
             />
+            </div>
+            <div>
+            <label for="Nom">Nom: </label>
             <Input
                 val={addressNom}
                 onChangeFunc={setAddressNom}
                 placeholder="Nom"
             />
+            </div>
+            <div>
+            <label for="Prénom">Prénom: </label>
             <Input
                 val={addressPrenom}
                 onChangeFunc={setAddressPrenom}
                 placeholder="Prénom"
-            />
+            /></div>
+            <div>
+            <label for="Adresse">Adresse: </label>
             <Input
                 val={addressStreetName}
                 onChangeFunc={setStreetName}
                 placeholder="Adresse"
-            />
+            /></div>
+            <div>
+            <label for="Code Postal">Code Postal: </label>
             <Input
                 val={addressPinCode}
                 onChangeFunc={setPinCode}
                 placeholder="Code Postal"
-            />
+            /></div>
+            <div>
+            <label for="Ville">Ville: </label>
             <Input
                 val={addressCity}
                 onChangeFunc={setCity}
                 placeholder="Ville"
-            />
+            /></div>
+            <div>
+            <label for="Pays">Pays: </label>
             <Input
                 val={addressCountry}
                 onChangeFunc={setCountry}
                 placeholder="Pays"
-            />
+            /></div>
             
             {props.error && props.error !== "Aucune adresse enregistrée" ?
                 <ErrorDisplay>

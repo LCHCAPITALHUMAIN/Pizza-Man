@@ -13,3 +13,13 @@
     text-align: right;
     margin-right: 30px;
 }
+
+div {
+margin-bottom: 10px;
+}
+label {
+display: inline-block;
+width: 75px;
+text-align: left;
+}
+ 
