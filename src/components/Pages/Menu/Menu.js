@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import * as actions from '../../../store/actions/actions'
-
+import { Redirect } from 'react-router'
 import Spinner from '../../UI/Spinner/Spinner'
 import Category from './Category/Category'
 import Cart from './Cart/Cart'
@@ -10,7 +10,7 @@ import PageTitle from '../../UI/PageTitle/PageTitle'
 import commonStyle from '../../../static/style/common.module.css'
 import BG from '../../../static/img/Wine_Daniel.png'
 function Menu(props) {
-    const { menu, initMenu } = props;
+    const { menu, initMenu, getAddress, user } = props;
     
     useEffect(() => {
         
@@ -19,7 +19,9 @@ function Menu(props) {
 
     }, [initMenu, menu]);
 
-  
+    useEffect(() => {
+        getAddress(user)
+    }, [user, getAddress])
 
     function groupItemBy(array, property) {
         var hash = {},
@@ -46,15 +48,17 @@ function Menu(props) {
                 key={idx} />
             }
         );
-
+         console.log(props.user)   
         return (
             <>
+            {!props.user ? <Redirect to="/login" /> : null}
                 <div className={`container mt-5 pt-2 ${commonStyle.PageBody}`}
                 style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('${BG}')` }}>
             
                     <PageTitle>
                         Sélection
                     </PageTitle>
+                    
                     <div className="row">
                         <div className="col-lg-9">
                             <table className={`container mt-5 pt-2 ${commonStyle.CommandTable}`}>
@@ -85,12 +89,14 @@ function Menu(props) {
 const mapStateToProps = state => ({
     menu: state.menu.menu,
     isLoading: state.menu.isLoading,
-    error: state.menu.error
+    error: state.menu.error,
+    user: state.auth.user
 })
 
 
 const mapDispatchToProps = dispatch => ({
-    initMenu: () => dispatch(actions.initMenu())
+    initMenu: () => dispatch(actions.initMenu()),
+    getAddress: (user) => dispatch(actions.getAddress(user)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menu)

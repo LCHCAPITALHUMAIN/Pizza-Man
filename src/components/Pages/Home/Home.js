@@ -1,13 +1,15 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import Button from '../../UI/Button/Button'
+import { Redirect } from 'react-router'
 
 import style from './home.module.css'
+import PageTitle from '../../UI/PageTitle/PageTitle'
+import LoginForm from '../Login/LoginForm/LoginForm'
 
 import BG from '../../../static/img/HomeBg/diaporama-01_n.jpeg'
 
-function Home() {
+function Home(props) {
     return (
         <>
             <div
@@ -16,16 +18,20 @@ function Home() {
                 <div className="container mt-5 pt-5">
                     <h2 className={style.H2}>Guigal</h2>
                    
-                    <Link to="/">
-                        <Button>
-                            Commander maintenant
-                        </Button>
-                    </Link>
+                    {props.user ? <Redirect to="/menu" /> : null}
+
+                    <PageTitle>
+                        Login
+                    </PageTitle>
+
+                    <LoginForm />
                 </div>
                 <div className={style.LandscapeOverlay} />
             </div>
         </>
     )
 }
-
-export default Home
+const mapStateToProps = state => ({
+    user: state.auth.user
+})
+export default connect(mapStateToProps)(Home)

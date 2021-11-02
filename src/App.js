@@ -15,6 +15,7 @@ const Checkout = lazy(() => import('./components/Pages/Checkout/Checkout'))
 const Disclaimer = lazy(() => import('./components/Pages/Disclaimer/Disclaimer'))
 const Error404 = lazy(() => import('./components/Pages/404/Error404'))
 const FAQ = lazy(() => import('./components/Pages/FAQ/FAQ'))
+const Home = lazy(() => import('./components/Pages/Home/Home'))
 const Login = lazy(() => import('./components/Pages/Login/Login'))
 const Logout = lazy(() => import('./components/Pages/Logout/Logout'))
 const Menu = lazy(() => import('./components/Pages/Menu/Menu'))
@@ -35,13 +36,12 @@ function App(props) {
       <Suspense fallback={<Loader />}>
         <Layout>
           <Switch>
-            <Route path="/" exact component={Menu} />
+            <Route path="/" exact component={Home} />
             <Route path="/about" component={About} />
             <Route path="/cart" component={Cart} />
             <Route path="/checkout" component={Checkout} />
             <Route path="/disclaimer" component={Disclaimer} />
             <Route path="/faq" component={FAQ} />
-            <Route path="/home" component={Menu} />
             <Route path="/menu" component={Menu} />
             <Route path="/orders" component={Orders} />
             <Route path="/privacy-policy" component={Privacy} />

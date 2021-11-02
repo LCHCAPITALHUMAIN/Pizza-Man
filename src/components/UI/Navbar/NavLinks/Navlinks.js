@@ -7,9 +7,6 @@ import style from './navlinks.module.css'
 function Navlinks(props) {
     return (
         <div className={`ml-auto my-auto ${style.NavLinkHolder}`}>
-            <NavLink exact to="/" className={style.NavLink} activeClassName={style.NavLinkActive}>
-                Commander maintenant
-            </NavLink>
             {props.user ? <>
                 <NavLink exact to="/orders" className={style.NavLink} activeClassName={style.NavLinkActive}>
                     Commandes
