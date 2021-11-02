@@ -62,23 +62,10 @@ function LoginForm(props) {
                             {props.error}
                         </ErrorDisplay> : null}
 
-                        <p className="font-weight-bold my-2">
-                            Not yet registered? <Link to="/register">Register</Link>
-                        </p>
-
                         <Button>
                             Login
                     </Button>
                     </form>
-                    <div align="center">
-                        <strong>
-                            OR
-                        </strong>
-                    </div>
-
-                    <StylizedFirebaseAuth
-                        uiConfig={uiConfig}
-                        firebaseAuth={firebase.auth()} />
                 </>}
         </div>
     )
