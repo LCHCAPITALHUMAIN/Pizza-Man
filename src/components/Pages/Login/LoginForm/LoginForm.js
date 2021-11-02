@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import StylizedFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 
-import firebase from '../../../../firebase/firebase'
 
 import Input from '../../../UI/Input/Input'
 import Button from '../../../UI/Button/Button'
@@ -14,15 +11,6 @@ import * as actions from '../../../../store/actions/actions'
 import { Redirect } from 'react-router'
 
 
-const uiConfig = {
-    signInFlow: "popup",
-    signInOptions: [
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID
-    ],
-    callbacks: {
-        signInSuccessWithAuthResult: () => false
-    }
-}
 
 function LoginForm(props) {
     const [email, setEmail] = useState("")
