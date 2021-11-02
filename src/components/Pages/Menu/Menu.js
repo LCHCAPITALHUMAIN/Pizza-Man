@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import * as actions from '../../../store/actions/actions'
@@ -7,12 +7,10 @@ import Spinner from '../../UI/Spinner/Spinner'
 import Category from './Category/Category'
 import Cart from './Cart/Cart'
 import PageTitle from '../../UI/PageTitle/PageTitle'
-import ErrorDisplay from '../../Util/ErrorDisplay/ErrorDisplay'
-import axios from '../../../axios/axios'
 import commonStyle from '../../../static/style/common.module.css'
 import BG from '../../../static/img/Wine_Daniel.png'
 function Menu(props) {
-    const { menu, error, isLoading, initMenu } = props;
+    const { menu, initMenu } = props;
     
     useEffect(() => {
         

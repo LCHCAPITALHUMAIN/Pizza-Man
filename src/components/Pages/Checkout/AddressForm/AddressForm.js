@@ -9,7 +9,7 @@ import * as BtnTypes from '../../../UI/Button/types'
 import * as actions from '../../../../store/actions/actions'
 
 function AddressForm(props) {
-    const { streetName, city, state, country, pinCode, user, hideAddressForm, address,
+    const { streetName, city, country, pinCode, user, hideAddressForm, address,
     nom, prenom,email } = props
 
     const [addressStreetName, setStreetName] = useState(streetName || "")

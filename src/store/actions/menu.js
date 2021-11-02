@@ -4,7 +4,6 @@ import * as actionTypes from './actionTypes'
 
 import firebase from '../../firebase/firebase'
 
-import React,{useState,useEffect} from 'react';
 
 const db = firebase.firestore()
 export const getMenu = () => {

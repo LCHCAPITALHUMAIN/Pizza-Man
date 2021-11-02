@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import CartItem from './CartItem/CartItem'
-import Button from '../../../UI/Button/Button'
-import * as BtnTypes from '../../../UI/Button/types'
 
 import * as actions from '../../../../store/actions/actions'
 

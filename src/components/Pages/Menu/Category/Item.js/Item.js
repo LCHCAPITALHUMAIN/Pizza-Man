@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 import * as actions from '../../../../../store/actions/actions'
 
-import style from './item.module.css'
 import Product from './Product/Product'
  function Item(props) {
     const { name, index, products } = props
@@ -15,7 +14,6 @@ import Product from './Product/Product'
 
     // const categorieName = index === 0 ? <td rowSpan={subcat.item.length + 1}>{subcat.name}</td> : null
     const display_product = subcat.item.map((product, index) => {
-        console.log(product)
         const idx = index+'_prod';
         return <Product
             cat_name = {subcat.name}
@@ -34,20 +32,6 @@ import Product from './Product/Product'
      
 
     if (index > -1) {
-        const display = subcat.item.map((product, index) => {
-            return <Product
-
-                name={product.name}
-                id = {product.id}
-                price = {product.price}
-                desc = {product.desc}
-                imgLink = {product.imgLink}
-                index = {index}
-                unit_price= {product.unit_price}
-                box_quantity= {product.box_quantity}
-                key={index} />
-            }
-        );
         return (
             <>
             

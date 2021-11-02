@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import * as actions from '../../../store/actions/actions'
 
 import OrderItem from './OrderItem/OrderItem'
-import Spinner from '../../UI/Spinner/Spinner'
 import PageTitle from '../../UI/PageTitle/PageTitle'
 
 import commonStyle from '../../../static/style/common.module.css'

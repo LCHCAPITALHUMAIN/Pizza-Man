@@ -2,7 +2,6 @@ import firebase from '../../firebase/firebase'
 
 import * as actionTypes from './actionTypes'
 
-import React,{useState,useEffect} from 'react';
 
 const db = firebase.firestore()
 
