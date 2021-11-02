@@ -1,4 +1,4 @@
-import React ,{ useState }from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import * as actions from '../../../../../../store/actions/actions'
@@ -6,17 +6,18 @@ import * as actions from '../../../../../../store/actions/actions'
 import style from './product.module.css'
 
 function Product(props) {
-    const { name, desc, id, imgLink, price, index, 
+    const { name, desc, id, imgLink, price, index,
         cat_name,
-            rowSpan , unit_price,box_quantity } = props
-    const [inputValue, setInputValue] = React.useState(0);
-    
-    if (id in props.itemMap ){
-        if(props.cart[props.itemMap[id]].quantity != inputValue){
-            setInputValue(props.cart[props.itemMap[id]].quantity);
-        }
-        
-    }
+        rowSpan, unit_price, box_quantity } = props
+    const [inputValue, setInputValue] = useState(0);
+    const [totalTTC, setTotalTTC] = useState(0);
+    useEffect(() => {
+        if (id in props.itemMap === false) {
+
+            setInputValue(0);
+            setTotalTTC(0);
+        } 
+    }, [id, props.cart, props.itemMap])
 
     const item = {
         id: id,
@@ -26,47 +27,52 @@ function Product(props) {
         imgLink: imgLink,
         index: index,
         unit_price: unit_price,
-        box_quantity: box_quantity
+        box_quantity: box_quantity,
+        itemTotal: 0
     }
     const onChangeHandler = event => {
-        // setInputValue(event.target.value);
-        props.addCustomItemToCart(item, event.target.value)
-      };  
+
+        props.addCustomItemToCart(item, event.target.value);
+
+        setTotalTTC((event.target.value * item.price).toFixed(2));
+        setInputValue(event.target.value);
+    }
+
     if (index > -1) {
-        const categorieName = index === 0 ? <td rowSpan={rowSpan }>{cat_name}</td> : null
+        const categorieName = index === 0 ? <td rowSpan={rowSpan} className={`${style.Description}`}>{cat_name}</td> : null
 
         return (
-           
-                <>
+
+            <>
                 <tr className={cat_name}>
-                {categorieName}
-                <td >
-                    {name}
-                </td>
-                <td>
-                {box_quantity}
-                </td>
+                    {categorieName}
+                    <td >
+                        {name}
+                    </td>
+                    <td className={`${style.right}`}>
+                        {box_quantity}
+                    </td>
 
-                <td  >
-                {price}
-                </td>
-                <td  >
-                 {unit_price}
-                </td>
-               
-
-                <td  >
-                
-                <input 
-                    min='0'
-                    max='150'
-                    type="number"  className="center" 
-                    name="quantity" onChange={onChangeHandler}
-                    value={inputValue}/>
+                    <td  className={`${style.right}`}>
+                        {price}
+                    </td>
+                    <td  className={`${style.right}`}>
+                        {unit_price}
+                    </td>
 
 
-                </td>
-                
+                    <td  className={`${style.input}`}>
+
+                        <input
+                            min='0'
+                            max='150'
+                            type="number" className="center"
+                            name="quantity" onChange={onChangeHandler}
+                            value={inputValue} />
+
+
+                    </td>
+                    <td className={`${style.right}`}>{totalTTC}</td>
 
                 </tr>
 
@@ -88,7 +94,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     addItemToCart: item => dispatch(actions.addItemToCart(item)),
-    addCustomItemToCart: (item, quantity )=> dispatch(actions.addCustomItemToCart(item, quantity)),
+    addCustomItemToCart: (item, quantity) => dispatch(actions.addCustomItemToCart(item, quantity)),
     removeItemFromCart: item => dispatch(actions.removeItemFromCart(item)),
 })
 

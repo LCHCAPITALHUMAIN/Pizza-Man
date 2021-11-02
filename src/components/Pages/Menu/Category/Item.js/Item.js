@@ -15,6 +15,8 @@ import Product from './Product/Product'
 
     // const categorieName = index === 0 ? <td rowSpan={subcat.item.length + 1}>{subcat.name}</td> : null
     const display_product = subcat.item.map((product, index) => {
+        console.log(product)
+        const idx = index+'_prod';
         return <Product
             cat_name = {subcat.name}
             rowSpan = {subcat.item.length}
@@ -24,9 +26,9 @@ import Product from './Product/Product'
             desc={product.desc}
             imgLink={product.imgLink}
             index={index}
-            unit_price={product.unit_price}
-            box_quantity={product.box_quantity}
-            key={index+'_prod'} />
+            unit_price={product.price_unit}
+            box_quantity={product.quantity_box}
+            key={idx} />
     })
          
      

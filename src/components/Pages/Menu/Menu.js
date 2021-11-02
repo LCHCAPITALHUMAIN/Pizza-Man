@@ -10,52 +10,56 @@ import PageTitle from '../../UI/PageTitle/PageTitle'
 import ErrorDisplay from '../../Util/ErrorDisplay/ErrorDisplay'
 import axios from '../../../axios/axios'
 import commonStyle from '../../../static/style/common.module.css'
-
+import BG from '../../../static/img/Wine_Daniel.png'
 function Menu(props) {
     const { menu, error, isLoading, initMenu } = props;
-    const [post, setPost] = useState([])
+    
     useEffect(() => {
-        if (!menu.menu || menu.menu.length === 0) { initMenu() }
+        
+        if (!menu || menu.length === 0) { initMenu() }
 
 
     }, [initMenu, menu]);
 
-    useEffect(() => {
-        axios.get("../menu.json")
-            .then(response => (
-                setPost(response.data)
+  
 
-            ))
-
-    }, []);
-
-    const display2 = Array.from(menu).map((categoryData) => {
-        return <Category
-            name={categoryData.name}
-            items={categoryData.items}
-            key={categoryData.name} />;
-    });
-
-
-    if (props.menu.menu && props.menu.menu.length > 0) {
-        const display = props.menu.menu.map((categoryData, index) => {
-            const idx = index+'_cat';
+    function groupItemBy(array, property) {
+        var hash = {},
+           props = property.split('.');
+        for (var i = 0; i < array.length; i++) {
+           var key = props.reduce(function(acc, prop) {
+              return acc && acc[prop];
+           }, array[i]);
+           if (!hash[key]) hash[key] = { items: [], name: key };
+           hash[key].items.push(array[i]);
+        }
+        return hash;
+     }
+     
+     let grouped = Object.values(groupItemBy(menu, 'type'));
+   
+    if (grouped && grouped.length > 0) {
+        const display = grouped.map((categoryData, index) => {
+            const idx = index+'_type';
+            // console.log(categoryData);
             return <Category
                 name={categoryData.name}
-                items={categoryData.categorie}
+                items={categoryData.items}
                 key={idx} />
             }
         );
 
         return (
             <>
-                <div className={`container mt-5 pt-2 ${commonStyle.PageBody}`}>
+                <div className={`container mt-5 pt-2 ${commonStyle.PageBody}`}
+                style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url('${BG}')` }}>
+            
                     <PageTitle>
                         Sélection
                     </PageTitle>
                     <div className="row">
-                        <div className="col-lg-8">
-                            <table>
+                        <div className="col-lg-9">
+                            <table className={`container mt-5 pt-2 ${commonStyle.CommandTable}`}>
                             <thead>
                             <tr>
                                 <th colSpan="4">Bon de commande</th>
@@ -64,7 +68,7 @@ function Menu(props) {
                                 {display}
                             </table>
                         </div>
-                        <div className="col-lg-4 mb-5">
+                        <div className="col-lg-3 mb-5">
                             <Cart />
                         </div>
                     </div>
@@ -73,7 +77,7 @@ function Menu(props) {
         )
     } else {
         return (
-            <>wait</>
+            <><Spinner /></>
         )
     }
 

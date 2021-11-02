@@ -53,12 +53,13 @@ export const updateOrder = (uid, lastData) => (dispatch) => {
     .catch(function(error) {
         console.log("Error getting documents: ", error);
     });*/
-
+    console.log("Error getting documents: ", lastData);
     if (lastData) {
         dbRef.where("uid", "==", uid)
-            .orderBy("ts", "desc")
-            //.startAfter(lastData.data().ts)
-            .limit(3)
+        .where("ts", ">", 1)
+            .orderBy("ts","desc")
+            .startAfter(lastData.data().ts)
+            .limit(5)
             .get()
             .then(snapshot => {
                 const data = []
@@ -74,10 +75,11 @@ export const updateOrder = (uid, lastData) => (dispatch) => {
             })
             .catch(error => dispatch(getOrdersFail(error.message)))
     } else {
-        console.log(uid, " => ", uid);
         dbRef.where("uid", "==", uid)
-            //.orderBy("ts", "desc")
-            .limit(3)
+        //.where("ts", ">=", 1000000000000)
+            //.orderBy("ts","desc")
+            //.orderBy("ts","desc")
+            .limit(15)
             .get()
             .then(snapshot => {
                 const data = []

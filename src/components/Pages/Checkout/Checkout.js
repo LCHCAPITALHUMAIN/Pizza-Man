@@ -10,28 +10,32 @@ import RadioButton from '../../UI/RadioButton/RadioButton'
 import PageTitle from '../../UI/PageTitle/PageTitle'
 import SectionTitle from '../../UI/SectionTitle/SectionTitle'
 import ErrorDisplay from '../../Util/ErrorDisplay/ErrorDisplay'
-
+import Input from '../../UI/Input/Input'
+import Select from '../../UI/Select/Select'
 import * as actions from '../../../store/actions/actions'
-
 import commonStyle from '../../../static/style/common.module.css'
+import checkoutStyle from './checkout.module.css'
 
 
-const placeOrderHandler = (event, address, modeSelected, data, placeOrder, placeOrderFail) => {
+const placeOrderHandler = (event, address, modeSelected, modeDeliverySelected ,data, placeOrder, placeOrderFail) => {
     event.preventDefault()
 
-    if (address && modeSelected) {
+    if (address && modeSelected && modeDeliverySelected) {
         placeOrder(data)
     } else if (!address && !modeSelected) {
         placeOrderFail("Please make sure that all fields are filled")
+    } else if (!modeDeliverySelected) {
+        placeOrderFail("Please fill in the address field")
     } else if (!address) {
         placeOrderFail("Please fill in the address field")
-    } else {
+    }else {
         placeOrderFail("Please select the mode of payment field")
     }
 }
 
 function Checkout(props) {
     const order = props.cart.map(item => ({
+        id: item.id,
         name: item.name,
         quantity: item.quantity,
         itemPrice: item.price,
@@ -52,7 +56,13 @@ function Checkout(props) {
 
     const [addressFormShown, setAddressFormShown] = useState(false)
     const [modeSelected, setModeSelected] = useState(false)
+    const [ modeDeliverySelected, setModeDeliverySelected] = useState("Argenteuil")
+    const [deliveryAdress, setDeliveryAdress] = useState(false)
+    const [deliveryDate, setDeliveryDate] = useState(false)
+    const [comment, setComment] = useState(false)
+     
 
+    
     useEffect(() => {
         getAddress(user)
     }, [user, getAddress])
@@ -75,21 +85,74 @@ function Checkout(props) {
                                 Order Placed
                             </PageTitle>
                             <h1 className="display-6 mt-4">
-                                Your yummy pizza will arrive at your doorstep soon! :)
+                                :)
                             </h1>
                         </div>
                         : <>
                             {props.cart.length === 0 ?
-                                <Redirect to="./menu" /> : null}
+                                <Redirect to="./" /> : null}
                             {!props.user ?
                                 <Redirect to="./login" /> : null}
+                            <div>
+                            <span>LMPV Wineclub</span> 
+                            <br />
+                            4 Boulevard Vercingetorix,  <br />
+                            95100 Argenteuil, France <br />
+                            LMPVwineclub@gmail.com  
+                            </div>    
                             <PageTitle>
-                                Checkout
+                                Bon de Commande
                             </PageTitle>
+                            <table className="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">N° de bon</th>
+                                        <th scope="col">Fournisseur</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     
+                                        <tr key="1_A">
+                                            <td>{new Date().toLocaleDateString()}</td>
+                                            <td></td>
+                                            <td>LMPVWineclub</td>
+                                        </tr>
+                                    
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date de réception</th>
+                                        <th scope="col" colSpan="2">Mode de récupération</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     
+                                        <tr key="2_A">
+                                            <td><Input
+                                            val={deliveryDate}
+                                            onChangeFunc={setDeliveryDate}
+                                            placeholder="JJ/MM/YYYY"
+                                        /> </td>
+                                            <td> 
+                                            <Select val={modeDeliverySelected}  onChangeFunc={setModeDeliverySelected}/></td>
+                                        <td>
+                                           {modeDeliverySelected === "Livraison" ? <Input
+                                            val={deliveryAdress}
+                                            onChangeFunc={setDeliveryAdress}
+                                            placeholder="Autre adresse de Récupération"
+                                        /> : null}
+                                        
+                                        </td>
+                                        </tr>
+                                    
+                                </tbody>
+                            </table>
 
                             <div className="my-4">
                                 <SectionTitle>
-                                    Location
+                                    Destinataire
                                 </SectionTitle>
                                 {props.isAddressLoading ?
                                     <Spinner /> :
@@ -98,20 +161,20 @@ function Checkout(props) {
 
                                         {addressFormShown ?
                                             <AddressForm {...props.address} hideAddressForm={() => setAddressFormShown(false)} />
-                                            : props.addressError === "No Address Found" ?
+                                            : props.addressError === "Merci d'ajouter une adresse" ?
                                                 <>
                                                     <ErrorDisplay>
                                                         {props.addressError}
                                                     </ErrorDisplay>
                                                     <span className="my-3 d-inline-block">
                                                         <Button onClick={() => setAddressFormShown(true)}>
-                                                            Add Address
+                                                            Ajouter un destinataire
                                                     </Button>
                                                     </span>
                                                 </> :
                                                 <span className="my-3 d-inline-block">
                                                     <Button onClick={() => setAddressFormShown(true)}>
-                                                        Update Address
+                                                         Mettre à jour le destinataire
                                                 </Button>
                                                 </span>
                                         }
@@ -119,22 +182,88 @@ function Checkout(props) {
                             </div>
                             <div className="my-4">
                                 <SectionTitle>
-                                    Mode of Payment
+                                    Articles
                                 </SectionTitle>
+                                <div className="row">
+                                    <table className="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Nom</th>
+                                                <th scope="col">Quantité</th>
+                                                <th scope="col">Prix</th>
+                                                <th scope="col">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {props.cart.map(item => (
+                                                <tr key={item.id}>
+                                                    <td>{item.name}</td>
+                                                    <td>{item.quantity}</td>
+                                                    <td>{item.price}</td>
+                                                    <td>{item.quantity * item.price}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                        <tfoot className={checkoutStyle.totalLabelAlignRight}>
+                                            <tr>
+                                                <td colSpan="3" >Sous Total</td>
+                                                <td >
+                                                <span className={checkoutStyle.totalValueAlignRight}>{props.price}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td colSpan="3" >Expédition et manutention</td>
+                                                <td ><span className={checkoutStyle.totalValueAlignRight}>20</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td colSpan="3" >Tax</td>
+                                                <td ><span className={checkoutStyle.totalValueAlignRight}>8,6%</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td colSpan="3" >TVA</td>
+                                                <td ><span className={checkoutStyle.totalValueAlignRight}>{props.gst}</span></td>
+                                            </tr>
+                                            <tr>
+                                            <td colSpan="3" ></td>
+                                                <td><span className={checkoutStyle.totalOrderValueAlignRight}>{props.price + props.gst + 20}</span></td>
+                                            </tr>
+                                        </tfoot>            
+                                    </table>
+            
+                                </div>
+                            </div>
+                            <div className="my-4">
+                                
                                 <form>
+                                <SectionTitle>
+                                    Choix du mode de paiement
+                                </SectionTitle>
+                                <div className="row">
                                     <div className="col-12 mt-4">
-                                        <RadioButton name="ModeOfPayment" code="CashOnDelivery" isRequired clickFunc={() => setModeSelected(true)}>
-                                            Cash on Delivery
+                                        <RadioButton name="ModeOfPayment" code="virement" isRequired clickFunc={() => setModeSelected(true)}>
+                                            Chèque
                                         </RadioButton>
-                                        <RadioButton name="ModeOfPayment" code="Wallet" isDisabled isRequired clickFunc={() => setModeSelected(true)}>
-                                            Wallet
+                                        <RadioButton name="ModeOfPayment" code="cheque" isRequired clickFunc={() => setModeSelected(true)}>
+                                            Virement
                                         </RadioButton>
-                                        <RadioButton name="ModeOfPayment" code="CreditOrDebitCard" isDisabled isRequired clickFunc={() => setModeSelected(true)}>
-                                            Credit / Debit Card
+                                    </div>
+                                    <div className="col-12 mt-4">
+                                        Avez-vous besoin d'une facture ?
+                                        <RadioButton name="ModeOfPayment" code="virement" isRequired clickFunc={() => setModeSelected(true)}>
+                                            Oui
                                         </RadioButton>
-                                        <RadioButton name="ModeOfPayment" code="NetBanking" isDisabled isRequired clickFunc={() => setModeSelected(true)}>
-                                            Net Banking
+                                        <RadioButton name="ModeOfPayment" code="cheque" isRequired clickFunc={() => setModeSelected(true)}>
+                                            Non
                                         </RadioButton>
+                                    </div>
+                                    <div className="col-12 mt-4">
+                                         <textarea
+                                            className="form-control"
+                                            id="exampleFormControlTextarea1"
+                                            rows="3"
+                                            placeholder="Commentaire"
+                                            value={comment}
+                                            onChange={(e) => setComment(e.target.value)}
+                                        ></textarea>
                                     </div>
                                     <div className="col-12">
                                         {props.orderError ?
@@ -144,10 +273,11 @@ function Checkout(props) {
                                             : null}
                                     </div>
                                     <div className="col-12 my-3">
-                                        <Button type="button" onClick={(event) => placeOrderHandler(event, props.address, modeSelected, data, props.placeOrder, props.placeOrderFail)}>
-                                            Place Order
+                                        <Button type="button" onClick={(event) => placeOrderHandler(event, props.address, modeSelected, modeDeliverySelected, data, props.placeOrder, props.placeOrderFail)}>
+                                            Confirmer la commande
                                         </Button>
                                     </div>
+                                </div>
                                 </form>
                             </div>
                         </>}

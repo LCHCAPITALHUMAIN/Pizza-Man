@@ -7,8 +7,6 @@ import style from './home.module.css'
 
 import BG from '../../../static/img/HomeBg/diaporama-01_n.jpeg'
 
-import Logo from '../../../static/img/Logo.png'
-
 function Home() {
     return (
         <>
@@ -18,7 +16,7 @@ function Home() {
                 <div className="container mt-5 pt-5">
                     <h2 className={style.H2}>Guigal</h2>
                    
-                    <Link to="/menu">
+                    <Link to="/">
                         <Button>
                             Commander maintenant
                         </Button>

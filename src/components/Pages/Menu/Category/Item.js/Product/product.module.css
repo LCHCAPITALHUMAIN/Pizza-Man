@@ -18,6 +18,14 @@
 	justify-content: center;
 }
 
+.right {
+	text-align: right;
+}
+.input input{
+	text-align: right;
+	padding: 0;
+	width: 100%;
+}
 .ImgContainer .Image {
 	background-position: center;
 	background-size: cover;
@@ -30,11 +38,8 @@
 	transform: scale(1.2);
 }
 
-.Description {
-	display: inline-block;
-	font-size: smaller;
-	line-height: 100%;
-	margin-bottom: 12px;
+.Description td{
+	padding: 0;
 }
 
 .Row {

@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes'
 
-export const GST_RATE = 0.02
+export const GST_RATE = 0.086
 
 const initialState = {
     cart: [],

@@ -5,7 +5,7 @@
         {
           "items": [
             {
-              "desc": "Classic delight with 100% real mozzarella cheese",
+              "desc": "",
               "id": 1,
               "img": "IMAGE LINK",
               "name": "GUIGAL Côte du Rhône 2017",
@@ -14,7 +14,7 @@
               "box_quantity": 12
             },
             {
-              "desc": "Barbecue chicken for that extra zing",
+              "desc": "",
               "id": 2,
               "img": "IMAGE LINK",
               "name": "GUIGAL Côte du Rhône Magnum 2017",
@@ -23,16 +23,16 @@
               "box_quantity": 6
             },
             {
-              "desc": "Delightful combo of grilled mushroom & veggies",
+              "desc": "",
               "id": 3,
               "img": "IMAGE LINK",
-              "name": "GUIGAL Côte Rôtie 2017",
+              "name": "GUIGAL Gigondas 2017",
               "price": 383.52,
               "unit_price": 31.96,
               "box_quantity": 12
             },
             {
-              "desc": "Supreme combo of 3 types of chicken",
+              "desc": "",
               "id": 4,
               "img": "IMAGE LINK",
               "name": "GUIGAL Gigondas 2017",

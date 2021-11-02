@@ -1,0 +1,15 @@
+.totalValueAlignRight {
+	text-align: right;
+    margin-right: 30px;
+}
+.totalLabelAlignRight {
+	text-align: right;
+   
+}
+.totalOrderValueAlignRight {
+    color: brown;
+    font-weight: bold;
+    font-size: 30px;
+    text-align: right;
+    margin-right: 30px;
+}

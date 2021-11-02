@@ -1,3 +1,25 @@
 .PageBody {
 	min-height: 100vh;
 }
+.CommandTable {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 1px;
+	border: 2px solid #ddd;
+	background-color: #e9eff7;
+}
+.CommandTable td {
+	padding: 5px;
+	border: 2px solid #fff;
+}
+
+.CommandTable th {
+	padding: 0px;
+	margin: 0px;
+	border: 2px solid #fff;
+	font-weight: 300;
+	font-variant: small-caps;
+}
+.alignRight {
+	text-align: right;
+}

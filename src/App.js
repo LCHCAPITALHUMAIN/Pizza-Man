@@ -36,12 +36,13 @@ function App(props) {
       <Suspense fallback={<Loader />}>
         <Layout>
           <Switch>
-            <Route path="/" exact component={Home} />
+            <Route path="/" exact component={Menu} />
             <Route path="/about" component={About} />
             <Route path="/cart" component={Cart} />
             <Route path="/checkout" component={Checkout} />
             <Route path="/disclaimer" component={Disclaimer} />
             <Route path="/faq" component={FAQ} />
+            <Route path="/home" component={Menu} />
             <Route path="/menu" component={Menu} />
             <Route path="/orders" component={Orders} />
             <Route path="/privacy-policy" component={Privacy} />

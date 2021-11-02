@@ -5,7 +5,6 @@ import Navlinks from '../NavLinks/Navlinks'
 
 import style from './sidedrawer.module.css'
 
-import Logo from '../../../../static/img/Logo.png'
 
 function SideDrawer(props) {
     const { sidebarClose, sidebarShown } = props
@@ -17,7 +16,7 @@ function SideDrawer(props) {
             <div className={`${style.SideBarBody} ${sidebarShown ? style.SideBarBodyOpen : style.SideBarBodyClose}`}>
                 <div className={`container ${style.SideDrawerIcon}`}>
                     <Link to="/">
-                        <img src={Logo} alt="Pizza Man" />
+                        Accueil
                     </Link>
                     <Navlinks />
                 </div>

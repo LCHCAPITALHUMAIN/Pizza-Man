@@ -25,12 +25,10 @@ function CartPageItem(props) {
                     <div>
                         <strong> {name} </strong>
                     </div>
-                    <div className={`font-italic font-weight-lighter text-muted ${style.Description}`}>
-                        {desc}
-                    </div>
+                     
                     <div className="row mt-2">
                         <div className={style.Price}>
-                            Price: ₹ {price}
+                            Prix TTC: € {price}
                         </div>
                         <div className={`my-auto ml-auto d-inline-block ${style.BtnHolder}`}>
                             <button className={style.ItemActionBtn} onClick={() => props.removeItemFromCart(item)}>

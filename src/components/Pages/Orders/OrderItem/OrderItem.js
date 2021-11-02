@@ -14,15 +14,15 @@ function OrderItem({ address, order, price, ts, reference }) {
 
     return (
         <div ref={reference} className={`py-3 ${style.OrderItemBody}`}>
-            <strong className="d-inline-block mb-2">Time:</strong> {new Date(ts).toDateString()}
+            <strong className="d-inline-block mb-2">Date:</strong> {new Date(ts).toLocaleDateString()}
             <Address {...address} />
             <table className="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Item</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Quantity</th>
+                        <th scope="col">Produit</th>
+                        <th scope="col">Prix TTC</th>
+                        <th scope="col">Quantité</th>
                         <th scope="col">Total</th>
                     </tr>
                 </thead>
@@ -31,11 +31,7 @@ function OrderItem({ address, order, price, ts, reference }) {
                 </tbody>
             </table>
             <div className="mt-3">
-                <strong>Price: ₹</strong> {price.price}
-                <br />
-                <strong>GST: ₹</strong> {price.gst}
-                <br />
-                <strong>Total Price: ₹</strong> {price.total}
+                <strong>Prix Total TTC: €</strong> {price.total}
             </div>
         </div>
     )

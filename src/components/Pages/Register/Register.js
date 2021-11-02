@@ -10,7 +10,7 @@ import commonStyle from '../../../static/style/common.module.css'
 function Register(props) {
     return (
         <div className={`my-5 pt-2 container ${commonStyle.PageBody}`}>
-            {props.user ? <Redirect to="/menu" /> : null}
+            {props.user ? <Redirect to="/" /> : null}
 
             <PageTitle>
                 Register

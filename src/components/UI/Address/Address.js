@@ -1,17 +1,24 @@
 import React from 'react'
 
 function Address(props) {
-    const { buildingNumber, city, state, country, pinCode, streetName } = props
+    const { city, country, pinCode, streetName, nom , email, mobile } = props
     return (
         <div>
-            <strong>Address:</strong>
+            <strong>Destinataire:</strong>
             <br />
-            {buildingNumber ?
-                <p className="mb-0">{buildingNumber} {streetName}</p> : null}
+            {nom ?
+                <p className="mb-0">Votre Nom ou Entreprise :{nom}</p> : null}
+            {streetName ?
+                <p className="mb-0">N° de Rue, Rue :{streetName}</p> : null}
+             {pinCode ?
+                <p className="mb-0">Code Postal: {pinCode}</p> : null}    
             {city ?
-                <p className="mb-0">{city}, {state}, {country}</p> : null}
-            {pinCode ?
-                <p className="mb-0">PIN: {pinCode}</p> : null}
+                <p className="mb-0">Ville :{city}, {country}</p> : null}
+            {mobile ?
+                <p className="mb-0">Tél mobile :{mobile}</p> : null}  
+            {email ?
+                <p className="mb-0">Email : {email}</p> : null}      
+           
         </div>
     )
 }

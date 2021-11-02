@@ -8,14 +8,11 @@ function Navlinks(props) {
     return (
         <div className={`ml-auto my-auto ${style.NavLinkHolder}`}>
             <NavLink exact to="/" className={style.NavLink} activeClassName={style.NavLinkActive}>
-                Home
-            </NavLink>
-            <NavLink exact to="/menu" className={style.NavLink} activeClassName={style.NavLinkActive}>
-                Menu
+                Commander maintenant
             </NavLink>
             {props.user ? <>
                 <NavLink exact to="/orders" className={style.NavLink} activeClassName={style.NavLinkActive}>
-                    Orders
+                    Commandes
                 </NavLink>
                 <NavLink exact to="/logout" className={style.NavLink} activeClassName={style.NavLinkActive}>
                     Log Out
@@ -23,9 +20,6 @@ function Navlinks(props) {
             </> : <>
                     <NavLink exact to="/login" className={style.NavLink} activeClassName={style.NavLinkActive}>
                         Log In
-                    </NavLink>
-                    <NavLink exact to="/register" className={style.NavLink} activeClassName={style.NavLinkActive}>
-                        Register
                     </NavLink>
                 </>
             }

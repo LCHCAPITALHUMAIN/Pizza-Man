@@ -27,7 +27,7 @@ function Orders(props) {
             updateOrder(user.uid)
         }
         return () => clearOrders()
-    }, [])
+    }, [clearOrders, updateOrder, user])
 
     const observer = useRef()
     const lastOrderRef = useCallback((node) => {
@@ -39,7 +39,7 @@ function Orders(props) {
             }
         })
         if (node) { observer.current.observe(node) }
-    }, [isLoading, hasMore])
+    }, [isLoading, hasMore, props])
 
     const items = props.orders.length
     const display = props.orders.map((order, index) => {
@@ -54,7 +54,7 @@ function Orders(props) {
     return (
         <div className={`my-5 pt-2 container ${commonStyle.PageBody}`}>
             <PageTitle>
-                Orders
+                Commande(s)
             </PageTitle>
             <div className="my-2" />
             {!props.user ? <Redirect to="/" /> : null}
@@ -64,12 +64,12 @@ function Orders(props) {
             </>
                 : !props.isLoading ? <>
                     <h1 className="display-4">
-                        You haven't ordered anything yet!
+                        Vous n'avez aucune commande!
                     </h1>
                 </> : null}
             <br />
-            { // props.isLoading ? (props.orders.length ===0) ? :<Spinner /> :null
-                //: null
+            {  // props.isLoading ? <Spinner /> :null
+
             }
         </div >
     )

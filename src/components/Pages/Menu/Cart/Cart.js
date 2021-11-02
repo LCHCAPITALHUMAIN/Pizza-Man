@@ -18,22 +18,20 @@ function Cart(props) {
     return (
         <>
             <div className={`mt-4 ${style.Body}`}>
-                <h1 className="my-2 mx-2">Cart</h1>
+                <div className="mt-4 mx-2"><h1 >Commande</h1></div>
                 <div className="mx-2">
                     {props.cart.length > 0 ?
                         //     <button className={`my-2 mx-2 btn btn-danger ${style.ClearCartBtn}`} onClick={props.clearCart}>
 
                         // </button>
                         <span className={`my-2 mx-2 ${style.ClearCartBtn}`}>
-                            <Button onClick={props.clearCart} type={BtnTypes.DANGER}>
-                                Clear Cart
-                            </Button>
+                            
                         </span>
                         : <div className={style.EmptyBody}>
                             <i className="fa fa-shopping-cart" aria-hidden="true" />
                             <span>
-                                Cart is Empty!
-                    </span>
+                                Panier vide!
+                            </span>
                         </div>}
                 </div>
                 {props.cart.length > 0 ?
@@ -42,10 +40,10 @@ function Cart(props) {
                             {display}
                         </div>
                         <div className={style.CartUtil}>
-                            <strong className={`mx-2 ${style.Price}`}> Total: ₹ {props.price}</strong>
-                            <Link to="/cart">
+                            <strong className={`mx-2 ${style.Price}`}> Total: € {props.price.toFixed(2)}</strong>
+                            <Link to="/checkout">
                                 <button className={style.CheckoutBtn}>
-                                    GO TO CART
+                                    Commander
                                 </button>
                             </Link>
                         </div>
@@ -54,7 +52,7 @@ function Cart(props) {
             {props.cart.length > 0 ?
                 <Link to="/cart">
                     <div className={style.BodyMobile}>
-                        GO TO CART
+                        Commander
                     </div>
                 </Link> : null}
         </>

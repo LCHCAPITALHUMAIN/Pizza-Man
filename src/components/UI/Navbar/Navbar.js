@@ -6,8 +6,6 @@ import SideDrawer from './Sidedrawer/SideDrawer'
 
 import style from './navbar.module.css'
 
-import Logo from '../../../static/img/Logo.png'
-
 function Navbar() {
     const [sidebarShown, setSidebarShown] = useState(false)
 
@@ -16,7 +14,7 @@ function Navbar() {
             <div className={`container ${style.NavContainer}`}>
                 <div className={style.NavIcon}>
                     <Link to="/">
-                        Guigal
+                    LMPV Wineclub
                     </Link>
                 </div>
                 <div className={`ml-auto my-auto ${style.NavLinkHolder}`}>
