@@ -2,6 +2,7 @@ import React from 'react'
 
 import Item from './Item.js/Item'
 import SectionTitle from '../../../UI/SectionTitle/SectionTitle'
+import commonStyle from '../../../../static/style/common.module.css'
 
 const divStyle = {
   with: '300px',
@@ -25,20 +26,19 @@ function groupItemBy(array, property) {
 
 
 function Category(props) {
-  const { name, items, keyitem } = props
-
-
+  const { name, items, keyitem } = props;
   let categories = Object.values(groupItemBy(items, 'categorie'));
 
   const itemsDisplay = categories.map((subcat, index) => {
-    const idx = index+'_cat';
-  return <Item
-    key={idx}
-    name={subcat.name}
-    index={index}
-    products={subcat.items}
+    const idx = index + '_cat';
+    return <Item
+      key={idx}
+      name={subcat.name}
+      index={index}
+      products={subcat.items}
 
-  />})
+    />
+  })
 
   /* const categories = Object.values(items);
    console.log({categories: categories})
@@ -59,13 +59,13 @@ function Category(props) {
    });*/
 
   return (
-    <>
+    <table className={`container mt-5 pt-2 ${commonStyle.CommandTable}`}>
       <thead>
         <tr>
           <th colSpan="2"
             rowSpan="2" style={divStyle}>
             <SectionTitle>
-                {name}
+              {name}
             </SectionTitle>
           </th>
           <th rowSpan="2" style={divCenter}>ct</th>
@@ -81,8 +81,10 @@ function Category(props) {
       <tbody key={keyitem} >
         {itemsDisplay}
       </tbody>
+    </table>
 
-    </>
+
+
 
   )
 }

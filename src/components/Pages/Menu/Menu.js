@@ -48,7 +48,7 @@ function Menu(props) {
                 key={idx} />
             }
         );
-         console.log(props.user)   
+        // console.log(props.user)   
         return (
             <>
             {!props.user ? <Redirect to="/login" /> : null}
@@ -61,14 +61,9 @@ function Menu(props) {
                     
                     <div className="row">
                         <div className="col-lg-9">
-                            <table className={`container mt-5 pt-2 ${commonStyle.CommandTable}`}>
-                            <thead>
-                            <tr>
-                                <th colSpan="4">Bon de commande</th>
-                            </tr>
-                            </thead>
+                            
                                 {display}
-                            </table>
+                            
                         </div>
                         <div className="col-lg-3 mb-5">
                             <Cart />

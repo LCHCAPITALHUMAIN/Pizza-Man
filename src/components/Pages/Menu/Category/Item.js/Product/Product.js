@@ -16,24 +16,22 @@ function Product(props) {
 
             setInputValue(0);
             setTotalTTC(0);
-        } 
+        }
     }, [id, props.cart, props.itemMap])
 
     const item = {
         id: id,
         name: name,
-        price: price,
+        price: parseFloat(price),
         desc: desc,
         imgLink: imgLink,
         index: index,
-        unit_price: unit_price,
+        unit_price: parseFloat(unit_price),
         box_quantity: box_quantity,
         itemTotal: 0
     }
     const onChangeHandler = event => {
-
         props.addCustomItemToCart(item, event.target.value);
-
         setTotalTTC((event.target.value * item.price).toFixed(2));
         setInputValue(event.target.value);
     }
@@ -42,8 +40,6 @@ function Product(props) {
         const categorieName = index === 0 ? <td rowSpan={rowSpan} className={`${style.Description}`}>{cat_name}</td> : null
 
         return (
-
-            <>
                 <tr className={cat_name}>
                     {categorieName}
                     <td >
@@ -52,31 +48,22 @@ function Product(props) {
                     <td className={`${style.right}`}>
                         {box_quantity}
                     </td>
-
-                    <td  className={`${style.right}`}>
-                        {price}
+                    <td className={`${style.right}`}>
+                        {item.price.toFixed(2)}
                     </td>
-                    <td  className={`${style.right}`}>
-                        {unit_price}
+                    <td className={`${style.right}`}>
+                        {item.unit_price.toFixed(2)}
                     </td>
-
-
-                    <td  className={`${style.input}`}>
-
+                    <td className={`${style.input}`}>
                         <input
                             min='0'
                             max='150'
                             type="number" className="center"
                             name="quantity" onChange={onChangeHandler}
                             value={inputValue} />
-
-
                     </td>
                     <td className={`${style.right}`}>{totalTTC}</td>
-
                 </tr>
-
-            </>
         )
     }
     else {

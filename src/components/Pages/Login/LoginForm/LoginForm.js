@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
-
 import Input from '../../../UI/Input/Input'
 import Button from '../../../UI/Button/Button'
 import ErrorDisplay from '../../../Util/ErrorDisplay/ErrorDisplay'
@@ -23,12 +22,12 @@ function LoginForm(props) {
             password.length > 0) {
             props.emailAuth(email, password)
         } else {
-            props.emailAuthFail("Please fill up all fields")
+            props.emailAuthFail("Merci de saisir tous les champs")
         }
     }
 
     return (
-        <div>
+        <div >
             {props.registered ?
                 <Redirect to="/login" /> : null}
             {props.isLoading ? <Spinner /> :
@@ -49,10 +48,9 @@ function LoginForm(props) {
                         {props.error ? <ErrorDisplay>
                             {props.error}
                         </ErrorDisplay> : null}
-
                         <Button>
                             Login
-                    </Button>
+                        </Button>
                     </form>
                 </>}
         </div>

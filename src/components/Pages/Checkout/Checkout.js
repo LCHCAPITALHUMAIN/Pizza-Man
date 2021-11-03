@@ -17,23 +17,22 @@ import commonStyle from '../../../static/style/common.module.css'
 import checkoutStyle from './checkout.module.css'
 
 
-const placeOrderHandler = (event, address, modeSelected, data, placeOrder, placeOrderFail,modeFactured, modeDeliverySelected, deliveryAdress,deliveryDate,comment) => {
+const placeOrderHandler = (event, address, modeSelected, data, placeOrder, placeOrderFail, modeFactured, modeDeliverySelected, deliveryAdress, comment) => {
     event.preventDefault()
 
-data.modeSelected = modeSelected ? modeSelected : '';
-data.modeFactured = modeFactured ? modeFactured : '';
-data.modeDeliverySelected = modeDeliverySelected ? modeDeliverySelected : '';
-data.deliveryAdress = deliveryAdress ? deliveryAdress : '';
-data.deliveryDate = deliveryDate ? deliveryDate : '';
-data.comment = comment ? comment : '';
-console.log(data)
-if (address && modeSelected) {
+    data.modeSelected = modeSelected ? modeSelected : '';
+    data.modeFactured = modeFactured ? modeFactured : '';
+    data.modeDeliverySelected = modeDeliverySelected ? modeDeliverySelected : '';
+    data.deliveryAdress = deliveryAdress ? deliveryAdress : '';
+    data.comment = comment ? comment : '';
+    console.log(data)
+    if (address && modeSelected) {
         placeOrder(data)
     } else if (!address && !modeSelected) {
         placeOrderFail("Please make sure that all fields are filled")
     } else if (!address) {
         placeOrderFail("Please fill in the address field")
-    }else {
+    } else {
         placeOrderFail("Please select the mode of payment field")
     }
 }
@@ -61,19 +60,17 @@ function Checkout(props) {
             total: props.price + props.gst
         }
     }
-   
-    const { placeOrderInitialize, getAddress, user} = props
-    const days = 15; // Number of days in the future
+
+    const { placeOrderInitialize, getAddress, user } = props
     const [addressFormShown, setAddressFormShown] = useState(false)
     const [modeSelected, setModeSelected] = useState(false)
     const [modeFactured, setModeFactured] = useState(false)
     const [modeDeliverySelected, setModeDeliverySelected] = useState("Argenteuil")
     const [deliveryAdress, setDeliveryAdress] = useState('')
-    const [deliveryDate, setDeliveryDate] = useState(new Date( Date.now() + days * 24 * 60 * 60 * 1000).toLocaleDateString())
     const [comment, setComment] = useState('')
-     
 
-    
+
+
     useEffect(() => {
         getAddress(user)
     }, [user, getAddress])
@@ -105,12 +102,12 @@ function Checkout(props) {
                             {!props.user ?
                                 <Redirect to="./login" /> : null}
                             <div>
-                            <span>LMPV Wineclub</span> 
-                            <br />
-                            4 Boulevard Vercingetorix,  <br />
-                            95100 Argenteuil, France <br />
-                            LMPVwineclub@gmail.com  
-                            </div>    
+                                <span>LMPV Wineclub</span>
+                                <br />
+                                4 Boulevard Vercingetorix,  <br />
+                                95100 Argenteuil, France <br />
+                                LMPVwineclub@gmail.com
+                            </div>
                             <PageTitle>
                                 Bon de Commande
                             </PageTitle>
@@ -123,41 +120,36 @@ function Checkout(props) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                     
-                                        <tr key="1_A">
-                                            <td>{new Date().toLocaleDateString()}</td>
-                                            <td></td>
-                                            <td>LMPVWineclub</td>
-                                        </tr>
-                                    
+
+                                    <tr key="1_A">
+                                        <td>{new Date().toLocaleDateString()}</td>
+                                        <td></td>
+                                        <td>LMPVWineclub</td>
+                                    </tr>
+
                                 </tbody>
                                 <thead>
                                     <tr>
-                                        <th scope="col">Date de réception</th>
-                                        <th scope="col" colSpan="2">Mode de récupération</th>
-                                        
+                                        <th scope="col" colSpan="3">Mode de récupération</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                     
-                                        <tr key="2_A">
-                                            <td><Input
-                                            val={deliveryDate}
-                                            onChangeFunc={setDeliveryDate}
-                                            placeholder="JJ/MM/YYYY"
-                                        /> </td>
-                                            <td> 
-                                            <Select val={modeDeliverySelected}  onChangeFunc={setModeDeliverySelected}/></td>
-                                        <td>
-                                           {modeDeliverySelected === "Livraison" ? <Input
-                                            val={deliveryAdress}
-                                            onChangeFunc={setDeliveryAdress}
-                                            placeholder="Autre adresse de Récupération"
-                                        /> : null}
+
+                                    <tr key="2_A">
                                         
+                                        <td >
+                                            <Select val={modeDeliverySelected} onChangeFunc={setModeDeliverySelected} /></td>
+                                        <td colSpan="2">
+                                            {modeDeliverySelected === "Livraison" ? <Input
+                                                val={deliveryAdress}
+                                                onChangeFunc={setDeliveryAdress}
+                                                placeholder="Autre adresse de Récupération"
+                                            /> : null}
+
                                         </td>
-                                        </tr>
-                                    
+                                    </tr>
+
                                 </tbody>
                             </table>
 
@@ -180,13 +172,13 @@ function Checkout(props) {
                                                     <span className="my-3 d-inline-block">
                                                         <Button onClick={() => setAddressFormShown(true)}>
                                                             Ajouter un destinataire
-                                                    </Button>
+                                                        </Button>
                                                     </span>
                                                 </> :
                                                 <span className="my-3 d-inline-block">
                                                     <Button onClick={() => setAddressFormShown(true)}>
-                                                         Mettre à jour le destinataire
-                                                </Button>
+                                                        Mettre à jour le destinataire
+                                                    </Button>
                                                 </span>
                                         }
                                     </>}
@@ -219,77 +211,73 @@ function Checkout(props) {
                                             <tr>
                                                 <td colSpan="3" >Sous Total</td>
                                                 <td >
-                                                <span className={checkoutStyle.totalValueAlignRight}>{props.price}</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td colSpan="3" >Expédition et manutention</td>
-                                                <td ><span className={checkoutStyle.totalValueAlignRight}>20</span></td>
+                                                    <span className={checkoutStyle.totalValueAlignRight}>{props.price}</span></td>
                                             </tr>
                                             <tr>
                                                 <td colSpan="3" >Tax</td>
-                                                <td ><span className={checkoutStyle.totalValueAlignRight}>8,6%</span></td>
+                                                <td ><span className={checkoutStyle.totalValueAlignRight}>20%</span></td>
                                             </tr>
                                             <tr>
                                                 <td colSpan="3" >TVA</td>
                                                 <td ><span className={checkoutStyle.totalValueAlignRight}>{props.gst}</span></td>
                                             </tr>
                                             <tr>
-                                            <td colSpan="3" ></td>
-                                                <td><span className={checkoutStyle.totalOrderValueAlignRight}>{(props.price + props.gst + 20).toFixed(2)}</span></td>
+                                                <td colSpan="3" ></td>
+                                                <td><span className={checkoutStyle.totalOrderValueAlignRight}>{(props.price + props.gst).toFixed(2)}</span></td>
                                             </tr>
-                                        </tfoot>            
+                                        </tfoot>
                                     </table>
-            
+
                                 </div>
                             </div>
                             <div className="my-4">
-                                
+
                                 <form>
-                                <SectionTitle>
-                                    Choix du mode de paiement
-                                </SectionTitle>
-                                <div className="row">
-                                    <div className="col-12 mt-4">
-                                        <RadioButton name="ModeOfPayment" code="virement" isRequired clickFunc={() => setModeSelected('virement')}>
-                                            Chèque
-                                        </RadioButton>
-                                        <RadioButton name="ModeOfPayment" code="cheque" isRequired clickFunc={() => setModeSelected('cheque')}>
-                                            Virement
-                                        </RadioButton>
+                                    <SectionTitle>
+                                        Choix du mode de paiement
+                                    </SectionTitle>
+                                    <div className="row">
+                                        <div className="col-12 mt-4">
+                                            <RadioButton name="ModeOfPayment" code="virement" isRequired clickFunc={() => setModeSelected('virement')}>
+                                                Chèque
+                                            </RadioButton>
+                                            <RadioButton name="ModeOfPayment" code="cheque" isRequired clickFunc={() => setModeSelected('cheque')}>
+                                                Virement
+                                            </RadioButton>
+                                        </div>
+                                        <div className="col-12 mt-4">
+                                            Avez-vous besoin d'une facture ?
+                                            <RadioButton name="factured" code="yes" isRequired clickFunc={() => setModeFactured(true)}>
+                                                Oui
+                                            </RadioButton>
+                                            <RadioButton name="factured" code="no" isRequired clickFunc={() => setModeFactured(false)}>
+                                                Non
+                                            </RadioButton>
+                                        </div>
+                                        <div className="col-12 mt-4">
+                                            <textarea
+                                                className="form-control"
+                                                id="exampleFormControlTextarea1"
+                                                rows="3"
+                                                placeholder="Commentaire"
+                                                value={comment}
+                                                onChange={(e) => setComment(e.target.value)}
+                                            ></textarea>
+                                        </div>
+                                        <div className="col-12">
+                                            {props.orderError ?
+                                                <ErrorDisplay>
+                                                    {props.orderError}
+                                                </ErrorDisplay>
+                                                : null}
+                                        </div>
+                                        <div className="col-12 my-3">
+                                            <Button type="button" onClick={(event) => placeOrderHandler(event, props.address, modeSelected, data, props.placeOrder, props.placeOrderFail,
+                                                modeFactured, modeDeliverySelected, deliveryAdress, comment)}>
+                                                Confirmer la commande
+                                            </Button>
+                                        </div>
                                     </div>
-                                    <div className="col-12 mt-4">
-                                        Avez-vous besoin d'une facture ?
-                                        <RadioButton name="factured" code="yes" isRequired clickFunc={() => setModeFactured(true)}>
-                                            Oui
-                                        </RadioButton>
-                                        <RadioButton name="factured" code="no" isRequired clickFunc={() => setModeFactured(false)}>
-                                            Non
-                                        </RadioButton>
-                                    </div>
-                                    <div className="col-12 mt-4">
-                                         <textarea
-                                            className="form-control"
-                                            id="exampleFormControlTextarea1"
-                                            rows="3"
-                                            placeholder="Commentaire"
-                                            value={comment}
-                                            onChange={(e) => setComment(e.target.value)}
-                                        ></textarea>
-                                    </div>
-                                    <div className="col-12">
-                                        {props.orderError ?
-                                            <ErrorDisplay>
-                                                {props.orderError}
-                                            </ErrorDisplay>
-                                            : null}
-                                    </div>
-                                    <div className="col-12 my-3">
-                                        <Button type="button" onClick={(event) => placeOrderHandler(event, props.address, modeSelected, data, props.placeOrder, props.placeOrderFail,
-                                            modeFactured, modeDeliverySelected, deliveryAdress,deliveryDate,comment)}>
-                                            Confirmer la commande
-                                        </Button>
-                                    </div>
-                                </div>
                                 </form>
                             </div>
                         </>}

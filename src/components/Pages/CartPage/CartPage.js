@@ -18,7 +18,7 @@ function CartPage(props) {
     return (
         <div className={`container mt-5 pt-2 ${commonStyle.PageBody}`}>
             {props.cart.length === 0 ?
-                <Redirect to="./" /> : null}
+                <Redirect to="/bon-de-commande" /> : null}
             <PageTitle>
                 Panier
             </PageTitle>

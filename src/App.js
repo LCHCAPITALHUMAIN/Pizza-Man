@@ -42,7 +42,7 @@ function App(props) {
             <Route path="/checkout" component={Checkout} />
             <Route path="/disclaimer" component={Disclaimer} />
             <Route path="/faq" component={FAQ} />
-            <Route path="/menu" component={Menu} />
+            <Route path="/bon-de-commande" component={Menu} />
             <Route path="/orders" component={Orders} />
             <Route path="/privacy-policy" component={Privacy} />
             <Route path="/register" component={Register} />

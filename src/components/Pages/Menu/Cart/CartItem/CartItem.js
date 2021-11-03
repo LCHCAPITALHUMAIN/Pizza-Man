@@ -15,7 +15,10 @@ function CartItem(props) {
         desc: desc,
         imgLink: imgLink
     }
-
+    let itemPrice = item.price;
+    if(id in props.itemMap ){
+        itemPrice = props.cart[props.itemMap[id]].quantity * price
+    }
     return (
         <div className={style.Body}>
             <div>
@@ -26,19 +29,13 @@ function CartItem(props) {
             </div>
             <div className="row mt-2">
                 <div className={style.Price}>
-                    Price: € {price}
+                    Prix TTC : € {itemPrice.toFixed(2)}
                 </div>
                 <div className={`my-auto ml-auto d-inline-block ${style.BtnHolder}`}>
-                    <button className={style.ItemActionBtn} onClick={() => props.removeItemFromCart(item)}>
-                        <i className="fa fa-minus" aria-hidden="true" />
-                    </button>
                     <span className={`my-auto mx-1 font-weight-light ${style.Quantity}`}>
                         <strong> {id in props.itemMap ?
                             props.cart[props.itemMap[id]].quantity : 0} </strong>
                     </span>
-                    <button className={style.ItemActionBtn} onClick={() => props.addItemToCart(item)}>
-                        <i className="fa fa-plus" aria-hidden="true" />
-                    </button>
                 </div>
             </div>
         </div>

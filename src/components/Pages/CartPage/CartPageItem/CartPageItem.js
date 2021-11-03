@@ -14,7 +14,10 @@ function CartPageItem(props) {
         desc: desc,
         imgLink: imgLink
     }
-
+    let itemPrice = item.price;
+    if(id in props.itemMap ){
+        itemPrice = props.cart[props.itemMap[id]].quantity * price
+    }
     return (
         <div className={style.Body}>
             <div className={style.Row}>
@@ -28,7 +31,7 @@ function CartPageItem(props) {
                      
                     <div className="row mt-2">
                         <div className={style.Price}>
-                            Prix TTC: € {price}
+                            Prix TTC: € {itemPrice}
                         </div>
                         <div className={`my-auto ml-auto d-inline-block ${style.BtnHolder}`}>
                             <button className={style.ItemActionBtn} onClick={() => props.removeItemFromCart(item)}>
