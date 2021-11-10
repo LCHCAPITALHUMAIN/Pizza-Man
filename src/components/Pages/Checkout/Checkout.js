@@ -80,7 +80,8 @@ function Checkout(props) {
     if (props.orderPlaced) {
         props.clearCart()
     }
-
+    const tt_ht = 20 * props.price / (100+20);
+    const tt_gst = props.price - tt_ht;
     return (
         <div className={`container mt-5 pt-2 ${commonStyle.PageBody}`}>
             {props.isOrderLoading ?
@@ -154,7 +155,7 @@ function Checkout(props) {
 
                             <div className="my-4">
                                 <SectionTitle>
-                                    Destinataire
+                                Contact
                                 </SectionTitle>
                                 {props.isAddressLoading ?
                                     <Spinner /> :
@@ -170,13 +171,13 @@ function Checkout(props) {
                                                     </ErrorDisplay>
                                                     <span className="my-3 d-inline-block">
                                                         <Button onClick={() => setAddressFormShown(true)}>
-                                                            Ajouter un destinataire
+                                                            Ajouter un Contact
                                                         </Button>
                                                     </span>
                                                 </> :
                                                 <span className="my-3 d-inline-block">
                                                     <Button onClick={() => setAddressFormShown(true)}>
-                                                        Mettre à jour le destinataire
+                                                        Mettre à jour le Contact
                                                     </Button>
                                                 </span>
                                         }
@@ -210,19 +211,15 @@ function Checkout(props) {
                                             <tr>
                                                 <td colSpan="3" >Sous Total</td>
                                                 <td >
-                                                    <span className={checkoutStyle.totalValueAlignRight}>{props.price}</span></td>
+                                                    <span className={checkoutStyle.totalValueAlignRight}>{tt_gst.toFixed(2)}</span></td>
                                             </tr>
                                             <tr>
-                                                <td colSpan="3" >Tax</td>
-                                                <td ><span className={checkoutStyle.totalValueAlignRight}>20%</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td colSpan="3" >TVA</td>
-                                                <td ><span className={checkoutStyle.totalValueAlignRight}>{props.gst}</span></td>
+                                                <td colSpan="3" >TVA (20%)</td>
+                                                <td ><span className={checkoutStyle.totalValueAlignRight}>{tt_ht.toFixed(2)}</span></td>
                                             </tr>
                                             <tr>
                                                 <td colSpan="3" ></td>
-                                                <td><span className={checkoutStyle.totalOrderValueAlignRight}>{(props.price + props.gst).toFixed(2)}</span></td>
+                                                <td><span className={checkoutStyle.totalOrderValueAlignRight}>{(props.price).toFixed(2)}</span></td>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -238,10 +235,10 @@ function Checkout(props) {
                                     <div className="row">
                                         <div className="col-12 mt-4">
                                             <RadioButton name="ModeOfPayment" code="virement" isRequired clickFunc={() => setModeSelected('virement')}>
-                                                Chèque
+                                                Chèque : A l’ordre de LMPV
                                             </RadioButton>
                                             <RadioButton name="ModeOfPayment" code="cheque" isRequired clickFunc={() => setModeSelected('cheque')}>
-                                                Virement
+                                                Virement : IBAN : FR76 1027 8060 6300 0203 6940 257 - DOMICILIATION : CCM PARIS CARDINET - TITULAIRE : LMPV SAS
                                             </RadioButton>
                                         </div>
                                         <div className="col-12 mt-4">

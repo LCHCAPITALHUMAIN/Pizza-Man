@@ -4,7 +4,6 @@ function Address(props) {
     const { city, country, pinCode, streetName, nom , email, mobile } = props
     return (
         <div>
-            <strong>Destinataire:</strong>
             <br />
             {nom ?
                 <p className="mb-0">Votre Nom ou Entreprise :{nom}</p> : null}

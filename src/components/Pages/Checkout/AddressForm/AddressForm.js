@@ -9,12 +9,14 @@ import * as BtnTypes from '../../../UI/Button/types'
 import * as actions from '../../../../store/actions/actions'
 
 function AddressForm(props) {
-    const { streetName, city, country, pinCode, user, hideAddressForm, address,
-    nom, prenom,email } = props
+    const { streetName, city, pinCode, user, hideAddressForm, address,
+    nom, prenom,email,phoneNumber,society,tva } = props
 
     const [addressStreetName, setStreetName] = useState(streetName || "")
+    const [addressPhoneNumber, setPhoneNumber] = useState(phoneNumber || "")
+    const [addressSociety, setSociety] = useState(society || "")
+    const [addressTva, setTva] = useState(tva || "")
     const [addressCity, setCity] = useState(city || "")
-    const [addressCountry, setCountry] = useState(country || "")
     const [addressPinCode, setPinCode] = useState(pinCode || "")
     const [addressNom, setAddressNom] = useState(nom || "")
     const [addressPrenom, setAddressPrenom] = useState(prenom || "")
@@ -24,18 +26,16 @@ function AddressForm(props) {
         const updatedAddress = {
             streetName: addressStreetName,
             city: addressCity,
-            country: addressCountry,
             pinCode: addressPinCode,
             nom: addressNom,
             prenom: addressPrenom,
-            email: addressEmail
+            email: addressEmail,
+            phoneNumber: addressPhoneNumber,
+            society: addressSociety,
+            tva: addressTva
         }
         if (
-            addressStreetName.length >= 8 &&
-            addressCity.length >= 4 &&
-            addressPinCode.length >= 5 &&
-            addressNom.length >= 5 &&
-            addressPrenom.length >= 5 &&
+            
             addressEmail.length >= 5) {
             props.addAddress(user, updatedAddress, address ? false : true)
             hideAddressForm()
@@ -52,6 +52,30 @@ function AddressForm(props) {
                 val={addressEmail}
                 onChangeFunc={setAddressEmail}
                 placeholder="Email"
+            />
+            </div>
+            <div>
+            <label for="lastname">Raison sociale: </label>
+            <Input
+                val={addressSociety}
+                onChangeFunc={setSociety}
+                placeholder="Raison sociale"
+            />
+            </div>
+            <div>
+            <label for="lastname">Numéro de téléphone: </label>
+            <Input
+                val={addressPhoneNumber}
+                onChangeFunc={setPhoneNumber}
+                placeholder="Numéro de téléphone:"
+            />
+            </div>
+            <div>
+            <label for="lastname">N° de TVA: </label>
+            <Input
+                val={addressTva}
+                onChangeFunc={setTva}
+                placeholder="N° de TVA"
             />
             </div>
             <div>
@@ -89,13 +113,6 @@ function AddressForm(props) {
                 val={addressCity}
                 onChangeFunc={setCity}
                 placeholder="Ville"
-            /></div>
-            <div>
-            <label for="Pays">Pays: </label>
-            <Input
-                val={addressCountry}
-                onChangeFunc={setCountry}
-                placeholder="Pays"
             /></div>
             
             {props.error && props.error !== "Aucune adresse enregistrée" ?

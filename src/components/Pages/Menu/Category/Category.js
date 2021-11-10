@@ -75,7 +75,7 @@ function Category(props) {
         </tr>
         <tr>
           <th>nb Carton</th>
-          <th>Prix TTC</th>
+          <th>Total TTC</th>
         </tr>
       </thead>
       <tbody key={keyitem} >
