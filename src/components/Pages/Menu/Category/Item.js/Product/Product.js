@@ -10,7 +10,7 @@ function Product(props) {
         cat_name,
         rowSpan, unit_price, box_quantity } = props
     const [inputValue, setInputValue] = useState(0);
-    const [totalTTC, setTotalTTC] = useState(0);
+    const [totalTTC, setTotalTTC] = useState(0.00);
     useEffect(() => {
         if (id in props.itemMap === false) {
 

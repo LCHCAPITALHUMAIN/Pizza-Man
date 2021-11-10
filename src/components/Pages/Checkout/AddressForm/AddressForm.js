@@ -33,7 +33,6 @@ function AddressForm(props) {
         if (
             addressStreetName.length >= 8 &&
             addressCity.length >= 4 &&
-            addressCountry.length >= 4 &&
             addressPinCode.length >= 5 &&
             addressNom.length >= 5 &&
             addressPrenom.length >= 5 &&

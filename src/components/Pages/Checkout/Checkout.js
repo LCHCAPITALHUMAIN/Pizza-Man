@@ -53,7 +53,6 @@ function Checkout(props) {
         modeDeliverySelected: props.modeDeliverySelected,
         comment: props.comment,
         deliveryAdress: props.deliveryAdress,
-        deliveryDate: props.deliveryDate,
         price: {
             price: props.price,
             gst: props.gst,

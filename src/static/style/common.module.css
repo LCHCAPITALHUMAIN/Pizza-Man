@@ -7,6 +7,7 @@
 	border-spacing: 1px;
 	border: 2px solid #ddd;
 	background-color: #e9eff7;
+	margin-left: 15px;
 }
 .CommandTable td {
 	padding: 5px;
