@@ -21,4 +21,6 @@ label {
 display: inline-block;
 text-align: left;
 }
- 
+ .identite{
+     width: 200px;
+ }

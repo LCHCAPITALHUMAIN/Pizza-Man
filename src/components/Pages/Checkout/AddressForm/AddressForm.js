@@ -7,6 +7,7 @@ import Button from '../../../UI/Button/Button'
 import * as BtnTypes from '../../../UI/Button/types'
 
 import * as actions from '../../../../store/actions/actions'
+import checkoutStyle from '../checkout.module.css'
 
 function AddressForm(props) {
     const { streetName, city, pinCode, user, hideAddressForm, address,
@@ -47,7 +48,7 @@ function AddressForm(props) {
     return (
         <div>
             <div>
-            <label for="lastname">Email: </label>
+            <label for="lastname" className={checkoutStyle.identite}>Email: </label>
             <Input
                 val={addressEmail}
                 onChangeFunc={setAddressEmail}
@@ -55,7 +56,7 @@ function AddressForm(props) {
             />
             </div>
             <div>
-            <label for="lastname">Raison sociale: </label>
+            <label for="lastname" className={checkoutStyle.identite}>Raison sociale: </label>
             <Input
                 val={addressSociety}
                 onChangeFunc={setSociety}
@@ -63,7 +64,7 @@ function AddressForm(props) {
             />
             </div>
             <div>
-            <label for="lastname">Numéro de téléphone: </label>
+            <label for="lastname" className={checkoutStyle.identite}>Numéro de téléphone: </label>
             <Input
                 val={addressPhoneNumber}
                 onChangeFunc={setPhoneNumber}
@@ -71,7 +72,7 @@ function AddressForm(props) {
             />
             </div>
             <div>
-            <label for="lastname">N° de TVA: </label>
+            <label for="lastname" className={checkoutStyle.identite}>N° de TVA: </label>
             <Input
                 val={addressTva}
                 onChangeFunc={setTva}
@@ -79,7 +80,7 @@ function AddressForm(props) {
             />
             </div>
             <div>
-            <label for="Nom">Nom: </label>
+            <label for="Nom" className={checkoutStyle.identite}>Nom: </label>
             <Input
                 val={addressNom}
                 onChangeFunc={setAddressNom}
@@ -87,28 +88,28 @@ function AddressForm(props) {
             />
             </div>
             <div>
-            <label for="Prénom">Prénom: </label>
+            <label for="Prénom" className={checkoutStyle.identite}>Prénom: </label>
             <Input
                 val={addressPrenom}
                 onChangeFunc={setAddressPrenom}
                 placeholder="Prénom"
             /></div>
             <div>
-            <label for="Adresse">Adresse: </label>
+            <label for="Adresse" className={checkoutStyle.identite}>Adresse: </label>
             <Input
                 val={addressStreetName}
                 onChangeFunc={setStreetName}
                 placeholder="Adresse"
             /></div>
             <div>
-            <label for="Code Postal">Code Postal: </label>
+            <label for="Code Postal" className={checkoutStyle.identite}>Code Postal: </label>
             <Input
                 val={addressPinCode}
                 onChangeFunc={setPinCode}
                 placeholder="Code Postal"
             /></div>
             <div>
-            <label for="Ville">Ville: </label>
+            <label for="Ville" className={checkoutStyle.identite}>Ville: </label>
             <Input
                 val={addressCity}
                 onChangeFunc={setCity}
