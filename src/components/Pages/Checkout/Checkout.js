@@ -194,7 +194,7 @@ function Checkout(props) {
                                                 <th scope="col">Nom</th>
                                                 <th scope="col">Quantité</th>
                                                 <th scope="col">Prix</th>
-                                                <th scope="col">Total</th>
+                                                <th scope="col" className={checkoutStyle.totalValueAlignRight}><span className={checkoutStyle.totalValueAlignRight}>Total</span></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -203,7 +203,7 @@ function Checkout(props) {
                                                     <td>{item.name}</td>
                                                     <td>{item.quantity}</td>
                                                     <td>{item.price}</td>
-                                                    <td>{item.quantity * item.price}</td>
+                                                    <td className={checkoutStyle.totalValueAlignRight}> <span className={checkoutStyle.totalValueAlignRight}>{item.quantity * item.price}</span></td>
                                                 </tr>
                                             ))}
                                         </tbody>

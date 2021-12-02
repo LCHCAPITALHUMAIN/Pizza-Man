@@ -1,13 +1,15 @@
 import React, { useEffect, lazy, Suspense } from 'react'
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-
-import firebase from './firebase/firebase'
-
+import firebase from 'firebase/app';
+//import firebase from './firebase/firebase'
+import 'firebase/auth';
+import 'firebase/database';
 import * as actions from './store/actions/actions'
 
 import Layout from './components/UI/Layout/Layout';
 import Loader from './components/UI/Loader/Loader';
+// import Products from './components/Pages/Products/Products';
 
 const About = lazy(() => import('./components/Pages/About/About'))
 const Cart = lazy(() => import('./components/Pages/CartPage/CartPage'))
@@ -23,6 +25,7 @@ const Orders = lazy(() => import('./components/Pages/Orders/Orders'))
 const Privacy = lazy(() => import('./components/Pages/Privacy/Privacy'))
 const Register = lazy(() => import('./components/Pages/Register/Register'))
 const Terms = lazy(() => import('./components/Pages/Terms/Terms'))
+const Products = lazy(() => import('./components/Pages/Products/Products'))
 
 function App(props) {
   useEffect(() => {
@@ -43,6 +46,7 @@ function App(props) {
             <Route path="/disclaimer" component={Disclaimer} />
             <Route path="/faq" component={FAQ} />
             <Route path="/bon-de-commande" component={Menu} />
+            <Route path="/selection" component={Products} />
             <Route path="/orders" component={Orders} />
             <Route path="/privacy-policy" component={Privacy} />
             <Route path="/register" component={Register} />

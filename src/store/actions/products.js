@@ -1,38 +1,41 @@
-import axios from '../../axios/axios'
 
 import * as actionTypes from './actionTypes'
 
-import firebase from '../../firebase/firebase'
+// import firebase from '../../firebase/firebase'
+import firebase from '../../firebase/firebase';
+import 'firebase/database';
 
-const db = firebase.firestore()
 
-export const getMenu = () => {
+export const getProducts = () => {
     return {
-        type: actionTypes.GET_MENU
+        type: actionTypes.GET_PRODUCTS
     }
 }
 
-export const getMenuSuccess = menu => {
+export const getProductsSuccess = products => {
     return {
-        type: actionTypes.GET_MENU_SUCCESS,
+        type: actionTypes.GET_PRODUCTS_SUCCESS,
         payload: {
-            menu: menu
+            products: products
         }
     }
 }
 
-export const getMenuFail = error => {
+export const getProductsFail = error => {
     return {
-        type: actionTypes.GET_MENU_FAIL,
+        type: actionTypes.GET_PRODUCTS_FAIL,
         payload: {
             error: error
         }
     }
 }
 
-export const initMenu = () => {
+
+
+export const initProducts = () => {
+    const db = firebase.firestore();
     return dispatch => {
-        dispatch(getMenu())
+        dispatch(getProducts())
         // const dbRef = db.collection("orders")
         db.collection("produits")
             .get()
@@ -43,28 +46,19 @@ export const initMenu = () => {
                     product.id = doc.id
                     data.push(product)
                     // doc.data() is never undefined for query doc snapshots
-                    // console.log(doc.id, " => ", doc.data());
+                    console.log(doc.id, " => ", doc.data());
                 });
                 if (snapshot.docs.length > 0) {
-                    dispatch(getMenuSuccess(data))
+                    // dispatch(getMenuSuccess(data))
+
+                    dispatch(getProductsSuccess(data))
                 } else {
-                    dispatch(getMenuFail(data))
+                    // dispatch(getProductsFail(data))
                 }
             })
             .catch(function (error) {
                 console.log("Error getting documents: ", error);
+                dispatch(getProductsFail(error))
             });
-    }
-}
-
-export const initMenu3 = () => {
-    return dispatch => {
-        dispatch(getMenu())
-        axios.get("../menu.json")
-            .then(response => (
-
-                dispatch(getMenuSuccess(response.data))
-            ))
-            .catch(error => dispatch(getMenuFail(error.message)))
     }
 }
